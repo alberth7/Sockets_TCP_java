@@ -25,10 +25,18 @@ public class ServerTCP {
 			servidor = new ServerSocket(puerto);
 			System.out.println("*** Servidor TCP iniciado***");
 			System.out.println("... espertando al cliente");
+			
 			while(true) {
 				cliente = servidor.accept();
 				PrintStream mensajeBienvenida = new PrintStream(cliente.getOutputStream());
 				mensajeBienvenida.println(" ***** Bienvenido al servidor  ****");
+				
+				//esperando un mensaje
+				entrada = new Scanner(cliente.getInputStream());
+				salida = new PrintStream(cliente.getOutputStream());
+				mensajeSolicitud = entrada.nextLine();
+				mensajeRespuesta = "Respuesta del Servidor; tu mensaje fue, " + mensajeSolicitud; 
+				salida.println(mensajeRespuesta);
 				
 			}
 			

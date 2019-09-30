@@ -5,11 +5,15 @@ import java.util.Scanner;
 public class ClienteTCP {
 	Socket cliente;
 	
-	
+	Scanner entrada;
+	PrintStream salida;
 	
 	String host;
 	int puerto;
 	
+	String mensajeSolicitud = "";
+	String mensajeRespuesta= "";
+	Scanner lectura;
 	
 	public ClienteTCP(String h, int p) {
 		host = h;
@@ -22,6 +26,20 @@ public class ClienteTCP {
 			Scanner mensajeBienvenida = new Scanner(cliente.getInputStream());
 			System.out.println(mensajeBienvenida.nextLine());
 			
+			salida = new PrintStream(cliente.getOutputStream());
+			entrada = new Scanner(cliente.getInputStream());
+			
+			
+			Scanner leer = new Scanner(System.in);
+			System.out.println("ingrese un mensaje: ");
+			mensajeSolicitud =  leer.nextLine();
+			salida.println(mensajeSolicitud);
+			
+			mensajeRespuesta = entrada.nextLine();
+			System.out.println(mensajeRespuesta);
+			
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			finalizar();
@@ -33,7 +51,8 @@ public class ClienteTCP {
 
 	public void finalizar() {
 		try {
-		
+			entrada.close();
+			salida.close();
 			cliente.close();
 			System.out.println("conexion finalizada ...");
 		} catch (Exception e) {
