@@ -29,15 +29,16 @@ public class ServerTCP {
 			while(true) {
 				cliente = servidor.accept();
 				PrintStream mensajeBienvenida = new PrintStream(cliente.getOutputStream());
-				mensajeBienvenida.println(" ***** Bienvenido al servidor  ****");
+				mensajeBienvenida.println(" ***** Bienvenido al Programa FIBONACCI  ****");
 				
 				//esperando un mensaje
 				entrada = new Scanner(cliente.getInputStream());
 				salida = new PrintStream(cliente.getOutputStream());
-				mensajeSolicitud = entrada.nextLine();
-				mensajeRespuesta = "Respuesta del Servidor; tu mensaje fue, " + mensajeSolicitud; 
-				salida.println(mensajeRespuesta);
+				// mensaje solicitud en este caso n del fibo
+				int n = Integer.parseInt(entrada.nextLine());
 				
+				mensajeRespuesta = "Respuesta del Servidor: " + fibo(n) ; 
+				salida.println(mensajeRespuesta);
 			}
 			
 		} catch (Exception e) {
@@ -46,6 +47,19 @@ public class ServerTCP {
 		}finally {
 			finalizar();
 		}
+	}
+
+	private String fibo(int n) {
+		String resultado = "";
+		int a = -1, b = 1,f = 0, c = 0;
+		while (c < n) {
+			f = a + b;
+			resultado =  resultado + f+", ";
+			a = b;
+			b = f;
+			c++;
+		}
+		return resultado;
 	}
 
 	public void finalizar() {	
@@ -59,4 +73,5 @@ public class ServerTCP {
 			e.printStackTrace();
 		}
 	}
+	
 }

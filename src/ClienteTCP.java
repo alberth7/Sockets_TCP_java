@@ -31,7 +31,7 @@ public class ClienteTCP {
 			
 			
 			Scanner leer = new Scanner(System.in);
-			System.out.println("ingrese un mensaje: ");
+			System.out.println("ingrese n: ");
 			mensajeSolicitud =  leer.nextLine();
 			salida.println(mensajeSolicitud);
 			
