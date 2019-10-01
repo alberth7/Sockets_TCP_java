@@ -44,9 +44,9 @@ public class ServerTCP {
 		try {
 			salida.close();
 			entrada.close();
+			System.out.println("conexion finalizada.");
 			servidor.close();
 			cliente.close();
-			System.out.println("conexion finalizada.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
